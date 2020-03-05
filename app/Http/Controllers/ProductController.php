@@ -30,15 +30,14 @@ class ProductController extends Controller
     {
         try {      
             $category = Category::find($request['category_id']);
-               
             /* Validation if the category has subcategories */
-            if(count($category->children) > 1){
+            if(count($category->children) > 0){
                 throw new Exception("The category $category->name has subcategories", 204);
             }
             $product = Product::create($request->all());
             return response()->json($product);
         } catch (\Exception $e) {
-            return response()->json($e);
+            return response()->json($e->getMessage());
         }
     }
 
@@ -67,13 +66,13 @@ class ProductController extends Controller
             $category = Category::find($request['category_id']);
                
             /* Validation if the category has subcategories */
-            if(count($category->children) > 1){
+            if(count($category->children) > 0){
                 throw new Exception("The category $category->name has subcategories", 204);
             }
             $product->fill($request->all())->save();
             return response()->json($product);
         } catch (\Exception $e) {
-            return response()->json($e);
+            return response()->json($e->getMessage() );
         }
         
     }
