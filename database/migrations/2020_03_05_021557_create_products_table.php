@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->float('weight', 8, 2)->nullable();
             $table->double('price', 30, 2)->default(0);
-            $table->integer('category_id')->unsigned()->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('image_1')->default('default.png');
             $table->string('image_2')->default('default.png');
             $table->string('image_3')->default('default.png');
