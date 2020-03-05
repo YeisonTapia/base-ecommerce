@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -26,6 +28,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $category = Category::find($request['category_id']);
+                
+        /* Validation if the category has subcategories */
+        if(count($category->children) > 1){
+            throw new Exception("The category $category->name has subcategories", 204);
+        }
+
         $product = Product::create($request->all());
         return response()->json($product);
     }
