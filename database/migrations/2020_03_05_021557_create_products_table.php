@@ -15,6 +15,15 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->text('description');
+            $table->float('weight', 8, 2)->nullable();
+            $table->double('price', 30, 2)->default(0);
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
+            $table->string('image_1')->default('default.png');
+            $table->string('image_2')->default('default.png');
+            $table->string('image_3')->default('default.png');
             $table->timestamps();
         });
     }
