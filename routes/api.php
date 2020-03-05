@@ -19,17 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::middleware([])->group(function () {
-    
+
     Route::post('/categories', 'CategoryController@store');
     Route::get('/categories', 'CategoryController@index');
     Route::get('/categories/{category}', 'CategoryController@show');
     Route::put('/categories/{category}', 'CategoryController@update');
     Route::delete('/categories/{category}', 'CategoryController@destroy');
 
-    Route::post('/produtcs', 'ProductController@store');
-    Route::get('/produtcs', 'ProductController@index');
-    Route::get('/produtcs/{produtc}', 'ProductController@show');
-    Route::put('/produtcs/{produtc}', 'ProductController@update');
-    Route::delete('/produtcs/{produtc}', 'ProductController@destroy');
+    Route::post('/products', 'ProductController@store');
+    Route::get('/products', 'ProductController@index');
+    Route::get('/products/{product}', 'ProductController@show');
+    Route::put('/products/{product}', 'ProductController@update');
+    Route::delete('/products/{product}', 'ProductController@destroy');
 
 });
