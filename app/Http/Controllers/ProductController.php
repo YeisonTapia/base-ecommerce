@@ -28,15 +28,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::find($request['category_id']);
-                
-        /* Validation if the category has subcategories */
-        if(count($category->children) > 1){
-            throw new Exception("The category $category->name has subcategories", 204);
+        try {      
+            $category = Category::find($request['category_id']);
+               
+            /* Validation if the category has subcategories */
+            if(count($category->children) > 1){
+                throw new Exception("The category $category->name has subcategories", 204);
+            }
+            $product = Product::create($request->all());
+            return response()->json($product);
+        } catch (\Exception $e) {
+            return response()->json($e);
         }
-
-        $product = Product::create($request->all());
-        return response()->json($product);
     }
 
     /**
@@ -59,8 +62,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->fill($request->all())->save();
-        return response()->json($product);
+
+        try {      
+            $category = Category::find($request['category_id']);
+               
+            /* Validation if the category has subcategories */
+            if(count($category->children) > 1){
+                throw new Exception("The category $category->name has subcategories", 204);
+            }
+            $product->fill($request->all())->save();
+            return response()->json($product);
+        } catch (\Exception $e) {
+            return response()->json($e);
+        }
+        
     }
 
     /**
